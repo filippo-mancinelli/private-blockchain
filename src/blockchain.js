@@ -80,6 +80,8 @@ class Blockchain {
         return new Promise((resolve) => {
             let message =`${address}:${new Date().getTime().toString().slice(0,-3)}:starRegistry`;
             resolve(message);
+        }).then(function (result){
+            message = result;
         });
     }
 
@@ -152,7 +154,7 @@ class Blockchain {
         let self = this;
         let stars = [];
         return new Promise((resolve, reject) => {
-            stars = self.chain.filter(block => block.getBData())
+            stars = self.chain.filter(block => block.getBData().split(":")[0]);
         });
     }
 

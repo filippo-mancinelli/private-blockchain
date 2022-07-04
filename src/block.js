@@ -45,12 +45,13 @@ class Block {
      *  Auxiliary Method to return the block body (decoding the data)
      */
     getBData() {
+        let self = this;
         return new Promise(function(resolve, reject){
-            const encoded_data = this.body;              // Store the data 
+            const encoded_data = self.body;              // Store the data 
             const decoded_data = hex2ascii(encoded_data) // Decode the data to retrieve the JSON representation of the object
             var obj = JSON.parse(decoded_data);          // Parse the data to an object to retrieve.
-            if(obj.height != 0 ){                        // Resolve with the data if the object isn't the Genesis block
-                resolve(obj.body);
+            if(self.height != 0 ){                        // Resolve with the data if the object isn't the Genesis block
+                resolve(obj);
             }else{
                 reject(Error("Cannot return data from the genesis block."));
             }
@@ -59,4 +60,4 @@ class Block {
 
 }
 
-module.exports.Block = Block;                    // Exposing the Block class as a module
+module.exports.Block = Block;                   // Exposing the Block class as a module
