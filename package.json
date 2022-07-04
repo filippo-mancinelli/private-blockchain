@@ -1,0 +1,21 @@
+{
+  "name": "project-1-v2-boilerplate",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bitcoinjs-message": "^2.2.0",
+    "block.js": "^1.1.1",
+    "cookie-parser": "~1.4.4",
+    "crypto-js": "^4.1.1",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "hex2ascii": "^0.0.3",
+    "http-errors": "~1.6.3",
+    "jade": "^0.29.0",
+    "morgan": "~1.9.1"
+  }
+}
