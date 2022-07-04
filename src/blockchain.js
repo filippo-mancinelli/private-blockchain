@@ -78,7 +78,8 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            
+            let message =`${address}:${new Date().getTime().toString().slice(0,-3)}:starRegistry`;
+            resolve(message);
         });
     }
 
@@ -91,7 +92,20 @@ class Blockchain {
     submitStar(address, message, signature, star) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-            
+          let time = parseInt(message.split(":")[1]);
+          let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
+          
+          if(currentTime - time < 300){                              //check if time elapsed < 5 minutes 
+            if(bitcoinMessage.verify(message, address, signature)){  //verify the message
+                block = new BlockClass.Block(message);               //create the block 
+                self.chain.push(block);                              //push it into the chain
+                resolve(block);
+            }else{
+                reject(Error("Message is not verified."));
+            }
+          }else{
+            reject(Error("Too much time has passed."));
+          }
         });
     }
 
@@ -104,7 +118,11 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-           
+          const block = self.chain.filter(block => block.hash === hash);
+          if(typeof block != 'undefined'){
+            resolve(block);
+          }
+          reject(Error("No block found with this hash."));
         });
     }
 
@@ -134,7 +152,7 @@ class Blockchain {
         let self = this;
         let stars = [];
         return new Promise((resolve, reject) => {
-            
+            stars = self.chain.filter(block => block.getBData())
         });
     }
 
