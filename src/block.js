@@ -32,12 +32,12 @@ class Block {
         let self = this;
         return new Promise((resolve, reject) => {
             var current_hash = self.hash;
-            //using the spread operator "..." lets me create a temporary object using the same parameters 
-            //as the block with particulare fields modified, in this case "hash: null", since every block
+            //using the spread operator "..." allows me to return a temporary object using the same parameters 
+            //as the block with particular fields modified, in this case "hash: null", since every block
             //hash is set to null before being pushed into the chain array.
             var new_hash = SHA256(JSON.stringify({...self, hash: null}));  
             // Comparing if the hashes changed
-            if( current_hash !== new_hash){
+            if( JSON.stringify(current_hash) !== JSON.stringify(new_hash)){
                 reject(false).then(console.log("the block is not valid"));
             }
             resolve(true).then(console.log("the block is valid"));
