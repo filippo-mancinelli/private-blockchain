@@ -4,7 +4,7 @@ const BlockClass = require('./block.js');
 
 blocko = new BlockchainClass.Blockchain();
 blocko._addBlock(new BlockClass.Block("pollos"));
-
+blocko.chain[1].validate();
 
 
 

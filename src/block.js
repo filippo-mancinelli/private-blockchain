@@ -26,15 +26,18 @@ class Block {
     /**
      *  validate() method will validate if the block has been tampered or not.
      *  Been tampered means that someone from outside the application tried to change
-     *  values in the block data as a consequence the hash of the block should be different.
+     *  values in the block data, as a consequence the hash of the block should be different.
      */
     validate() {
         let self = this;
         return new Promise((resolve, reject) => {
             var current_hash = self.hash;
-            var real_hash = SHA256(JSON.stringify(self.data));
+            //using the spread operator "..." lets me create a temporary object using the same parameters 
+            //as the block with particulare fields modified, in this case "hash: null", since every block
+            //hash is set to null before being pushed into the chain array.
+            var new_hash = SHA256(JSON.stringify({...self, hash: null}));  
             // Comparing if the hashes changed
-            if( current_hash !== real_hash){
+            if( current_hash !== new_hash){
                 reject(false).then(console.log("the block is not valid"));
             }
             resolve(true).then(console.log("the block is valid"));
