@@ -38,10 +38,10 @@ class Block {
             var new_hash = SHA256(JSON.stringify({...self, hash: null}));  
             // Comparing if the hashes changed
             if( JSON.stringify(current_hash) !== JSON.stringify(new_hash)){
-                reject(false).then(console.log("the block is not valid"));
+                resolve(false);
             }
-            resolve(true).then(console.log("the block is valid"));
-        });
+            resolve(true);
+        }).catch(Error => {console.log("Error, something went wrong: " + Error)});
     }
 
     /**

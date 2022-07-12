@@ -4,12 +4,17 @@ const BlockClass = require('./block.js');
 
 blocko = new BlockchainClass.Blockchain();
 blocko._addBlock(new BlockClass.Block("pollos"));
-blocko.chain[1].validate();
 
+blocko.chain[1].previousBlockHash = "carlo";
+// blocko.chain[1].body = "tampered";
 
+async function pollo(){
+    let x = await blocko.validateChain()
+    console.log(x);
+}
+pollo();
 
 // console.log(blocko.requestMessageOwnershipVerification("addrex"));
-
 
 // A = new Date().getTime().toString().slice(0, -3);
 // console.log(A);
