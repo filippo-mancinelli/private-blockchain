@@ -38,4 +38,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.listen(8000, () => {
+  console.log(`Example app listening on port ${8000}`);
+});
+
 module.exports = app;
